@@ -1,0 +1,163 @@
+<!-- Css -->
+<!-- {load href="__VENDOR__/Wizard/wizard.css" /} -->
+
+<!-- Style -->
+<style>
+	form {
+		width: 100%;
+	}
+
+    /* Core */
+    .wizard {
+        position: relative;
+        width: 100%;
+    }
+
+    .wizard-steps {
+        display: flex;
+
+        position: relative;
+        padding: 0 10px;
+    }
+
+    .wizard-steps .step {
+        flex-grow: 1;
+
+        padding: 0 10px;
+        cursor: pointer;
+    }
+
+    .wizard-steps .step p {
+        height: 6rem;
+        line-height: 6rem;
+        text-align: center;
+        font-size: 3rem;
+        background: #eeeeee;
+    }
+
+    .wizard-steps .step.done p {
+        color: #ffffff;
+        background: #46BE8A;
+    }
+
+    .wizard-steps .step.current p {
+        color: #ffffff;
+        background: #62a8ea;
+    }
+
+    .wizard-steps .step.error p {
+        color: #ffffff;
+        background: #f96868;
+    }
+
+    .wizard-steps .step.disabled p {
+        cursor: not-allowed !important;
+    }
+
+
+    .wizard-panels {
+        position: relative;
+        padding: 10px 20px;
+        transition: height .2s ease;
+    }
+
+    .wizard-panels .pane {
+        position: absolute;
+        top: 0;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity .2s ease;
+    }
+
+    .wizard-panels .pane.active {
+        position: relative;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .wizard-panels .pane.activing {
+        visibility: hidden;
+    }
+
+    .wizard-panels .pane .wrap {
+        max-height: 40rem;
+        min-height: 20rem;
+        padding: 20px;
+        border: solid 1px #d3d3d3;
+    }
+
+    .wizard-panels .pane p {
+        height: 20rem;
+        line-height: 20rem;
+        text-align: center;
+        font-size: 6rem;
+    }
+
+    .wizard-buttons {
+        position: relative;
+        padding: 10px 20px;
+    }
+
+    .wizard-buttons .hide {
+        display: none;
+    }
+</style>
+
+
+<!-- Page -->
+<div class="panel mb-4">
+
+	<div class="panel-title title-success">Plugins - Wizard - Basic</div>
+
+    <div class="block mb-4">
+        <form class="form-horizontal" method="post" action="/plugin/page/wizard" id="form-submit">
+        <div class="wizard">
+            <div class="wizard-steps" role="tablist">
+                <div class="step current" role="tab"><p>Step 1</p></div>
+                <div class="step" role="tab"><p>Step 2</p></div>
+                <div class="step" role="tab"><p>Step 3</p></div>
+            </div>
+            <div class="wizard-panels">
+                <div class="pane active" role="tabpanel"><div class="wrap"><p>Content 1</p> <input type="hidden" name="hidden" value="0524"></div></div>
+                <div class="pane" role="tabpanel"><div class="wrap"><p>Content 2</p></div></div>
+                <div class="pane" role="tabpanel"><div class="wrap"><p>Content 3</p></div></div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+<!-- Plugins -->
+{load href="__VENDOR__/wizard/wizard.js" /}
+
+
+<!-- Javascript -->
+<script type="text/javascript">
+    // Default
+    $.wizard.setDefaults({
+        step : '.wizard-steps > div.step',
+        getPane: function getPane(index, step) {
+            return this.$element.find('.wizard-panels').children().eq(index);
+        },
+        templates : {
+            buttons : function() {
+                const options = this.options;
+                return '<div class="wizard-buttons"><a class="button button-default float-left wizard-back" href="#' + this.id + '" data-wizard="back" role="button">' + options.buttonLabels.back + '</a><a class="button button-success float-right wizard-next" href="#' + this.id + '" data-wizard="next" role="button">' + options.buttonLabels.next + '</a><a class="button button-success float-right wizard-finish" href="" data-wizard="finish" role="button">' + options.buttonLabels.finish + '</a></div>';
+            }
+        },
+
+        buttonLabels : {
+            back : 'Back',
+            next : 'Next',
+            finish : 'Finish'
+        }
+    });
+
+    // Basic
+    $('#form-submit').wizard({
+        onFinish : function() {
+            console.log('It is Finish.');
+            $('#form-submit').submit();
+        }
+    });
+</script>

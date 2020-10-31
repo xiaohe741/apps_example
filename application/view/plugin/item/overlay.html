@@ -1,0 +1,162 @@
+<!-- Css -->
+
+
+<!-- Style -->
+<style type="text/css">
+    img {
+        cursor: pointer;
+    }
+    .console {
+        width: 100%;
+        height: 30rem;
+        line-height: 30rem;
+        font-size: 7rem;
+        text-align: center;
+        background: #d3dd33;
+    }
+
+    .loadingoverlay_progress {
+    }
+</style>
+
+
+<!-- Pages -->
+<div class="panel" id="loading-overlay">
+    
+    <div class="panel-title title-success">Plugins - Overlay</div>
+
+    <div class="block mb-4">
+        <div class="group-button">
+            <button type="button" class="button button-default" data-overlay="viewport">Viewport</button>
+            <button type="button" class="button button-default" data-overlay="block">Block</button>
+            <button type="button" class="button button-default" data-overlay="item">Item</button>
+        </div>
+
+        <div class="group-button ml-4">
+            <button type="button" class="button button-default" data-overlay="custom">Custom</button>
+            <button type="button" class="button button-default" data-overlay="font">Font Awesome</button>
+            <button type="button" class="button button-default" data-overlay="fade">Fade Durations</button>
+
+            <button type="button" class="button button-default" data-overlay="progress">Progress</button>
+        </div>
+    </div>
+
+    <div class="block mb-4" id="loading-overlay-item">
+        <div class="console">Item</div>
+    </div>
+
+</div>
+
+
+<!-- Plugins -->
+{load href="__VENDOR__/overlay/overlay_progress.js" /}
+
+
+<!-- Javascript -->
+<script type="text/javascript">
+    $('[data-overlay]').each(function(index, el) {
+        var $this = $(this);
+        var $data = $this.data('overlay');
+
+        switch($data) {
+            case 'viewport':
+                $this.click(function(event) {
+                    $.LoadingOverlay('show');
+                    setTimeout(function(){
+                        $.LoadingOverlay('hide');
+                    }, 3000);
+                });
+                break;
+            case 'block':
+                $this.click(function(event) {
+                    $('#loading-overlay').LoadingOverlay('show', {
+                        color   : "rgba(255, 255, 255, 1)",
+                    });
+                    setTimeout(function(){
+                        $('#loading-overlay').LoadingOverlay('hide');
+                    }, 3000);
+                });
+                break;
+            case 'item':
+                $this.click(function(event) {
+                    $('#loading-overlay-item').LoadingOverlay('show', {
+                        maxSize : '50px'
+                    });
+                    setTimeout(function(){
+                        $('#loading-overlay-item').LoadingOverlay('hide');
+                    }, 3000);
+                });
+                break;
+            case 'custom':
+                $this.click(function(event) {
+                    var count           = 10;
+                    var customElement   = $("<div>", {
+                        id      : "countdown",
+                        css     : {
+                            "font-size" : "50px"
+                        },
+                        text    : count
+                    });
+
+                    $.LoadingOverlay("show", {
+                        color   : "rgba(255, 255, 255, 1)",
+                        image   : "",
+                        custom  : customElement
+                    });
+
+                    var interval = setInterval(function(){
+                        count--;
+                        customElement.text(count);
+                        if (count <= 0) {
+                            clearInterval(interval);
+                            $.LoadingOverlay("hide");
+                            return;
+                        }
+                    }, 1000);
+                });
+                break;
+            case 'font':
+                $this.click(function(event) {
+                    $.LoadingOverlay("show", {
+                        image       : "",
+                        fontawesome : "fas fa-sync-alt fa-spin",
+                    });
+
+                    setTimeout(function(){
+                        $.LoadingOverlay('hide');
+                    }, 5000);
+                });
+                break;
+            case 'fade':
+                $this.click(function(event) {
+                    $.LoadingOverlay("show", {
+                        fade  : [2000, 1000]
+                    });
+
+                    setTimeout(function(){
+                        $.LoadingOverlay('hide');
+                    }, 3000);
+                });
+                break;
+            case 'progress':
+                $this.click(function(event) {
+                    $.LoadingOverlay("show", {
+                        image         : "",
+                        progress      : true,
+                        progressColor : "#303030",
+                    });
+                    var count     = 0;
+                    var interval  = setInterval(function(){
+                        if (count >= 100) {
+                            // clearInterval(interval);
+                            // $.LoadingOverlay("hide");
+                            return;
+                        }
+                        count += 10;
+                        $.LoadingOverlay("progress", count);
+                    }, 300);
+                });
+                break;
+        } 
+    });
+</script>

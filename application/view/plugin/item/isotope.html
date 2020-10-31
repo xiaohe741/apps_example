@@ -1,0 +1,340 @@
+
+<!-- Style -->
+<style type="text/css">
+    .grid {
+    }
+    .grid-item {
+        position: relative;
+        width: 13.5rem;
+        height: 13.5rem;
+        margin: 0 1.9rem 1.9rem 0;
+        float: left;
+        border: solid 1px #d3d3d3;
+    }
+
+    .grid-item .name {
+        position: absolute;
+        font-size: 6rem;
+        left: 1rem;
+    }
+
+    .grid-item .number {
+        position: absolute;
+        font-size: 3rem;
+        top: 0.2rem;
+        right: 0.2rem;
+    }
+
+    .grid-item .price {
+        position: absolute;
+        font-size: 3rem;
+        left: 1rem;
+        bottom: 0;
+    }
+
+
+    .layout {
+        min-height: 40rem;
+    }
+
+    .layout-item {
+        position: relative;
+        width: 10rem;
+        height: 10rem;
+        line-height: 10rem;
+        margin: 0 1.5rem 1.5rem 0;
+        float: left;
+
+        font-size: 4rem;
+        text-align: center;
+        border: solid 1px #d3d3d3;
+    }
+
+    .style-1 {
+        width: 15rem;
+    }
+
+    .style-2 {
+        height: 15rem;
+        line-height: 15rem;
+    }
+
+    .style-3 {
+        width: 15rem;
+        height: 15rem;
+        line-height: 15rem;
+    }
+</style>
+
+
+<!-- Pages -->
+<div class="panel">
+	
+	<div class="panel-title title-success">Plugins - Isotope</div>
+
+	<div class="block block-column mb-4">
+
+		<div class="block mb-4">
+			<div class="group-button" id="isotope-filter">
+	            <button class="button button-default" disabled="true"><strong>Filter: </strong></button>
+	            <button class="button button-default" data-filter="*">Show All</button>
+	            <button class="button button-default" data-filter=".filter-one" data-category="filter-one">One</button>
+	            <button class="button button-default" data-filter=".filter-two" data-category="filter-two">Two</button>
+	            <button class="button button-default" data-filter=".filter-three" data-category="filter-three">Three</button>
+	            <button class="button button-default" data-filter=".filter-four" data-category="filter-four">Four</button>
+	        </div>
+
+	        <div class="group-button ml-4" id="isotope-sort">
+	            <button class="button button-default" disabled="true"><strong>Sort: </strong></button>
+	            <button class="button button-default" data-sort-by="name">By Name</button>
+	            <button class="button button-default" data-sort-by="number">By Number</button>
+	            <button class="button button-default" data-sort-by="price">By Price</button>
+	        </div>
+
+	        <div class="group-button ml-4" role="group" id="isotope-sort">
+	            <input type="text" class="form-control" id="search">
+	        </div>
+		</div>
+
+        <div class="divider-bold margin-bottom-20"></div>
+
+        <div class="grid">
+            <div class="grid-item filter-one" data-category="filter-one">
+                <p class="name">Ab</p>
+                <p class="number">15</p>
+                <p class="price">230.50</p>
+            </div>
+
+            <div class="grid-item filter-three" data-category="filter-three">
+                <p class="name">Ca</p>
+                <p class="number">62</p>
+                <p class="price">32.50</p>
+            </div>
+
+            <div class="grid-item filter-two" data-category="filter-two">
+                <p class="name">Co</p>
+                <p class="number">8</p>
+                <p class="price">49.03</p>
+            </div>
+
+            <div class="grid-item filter-four" data-category="filter-four">
+                <p class="name">Dw</p>
+                <p class="number">17</p>
+                <p class="price">85.00</p>
+            </div>
+
+            <div class="grid-item filter-one" data-category="filter-one">
+                <p class="name">Ps</p>
+                <p class="number">26</p>
+                <p class="price">452.50</p>
+            </div>
+
+            <div class="grid-item filter-three" data-category="filter-three">
+                <p class="name">Fa</p>
+                <p class="number">35</p>
+                <p class="price">796.53</p>
+            </div>
+
+            <div class="grid-item filter-one" data-category="filter-one">
+                <p class="name">Ka</p>
+                <p class="number">40</p>
+                <p class="price">30.12</p>
+            </div>
+
+            <div class="grid-item filter-two" data-category="filter-two">
+                <p class="name">Ta</p>
+                <p class="number">2</p>
+                <p class="price">87.10</p>
+            </div>
+
+            <div class="grid-item filter-three" data-category="filter-three">
+                <p class="name">Na</p>
+                <p class="number">10</p>
+                <p class="price">10.10</p>
+            </div>
+
+            <div class="grid-item filter-three" data-category="filter-three">
+                <p class="name">Ki</p>
+                <p class="number">9</p>
+                <p class="price">9.90</p>
+            </div>
+
+            <div class="grid-item filter-four" data-category="filter-four">
+                <p class="name">Ui</p>
+                <p class="number">99</p>
+                <p class="price">165.50</p>
+            </div>
+
+            <div class="grid-item filter-one" data-category="filter-one">
+                <p class="name">Re</p>
+                <p class="number">6</p>
+                <p class="price">86.00</p>
+            </div>
+
+            <div class="grid-item filter-four" data-category="filter-four">
+                <p class="name">Vi</p>
+                <p class="number">33</p>
+                <p class="price">62.98</p>
+            </div>
+
+            <div class="grid-item filter-two" data-category="filter-two">
+                <p class="name">Bo</p>
+                <p class="number">7</p>
+                <p class="price">897.99</p>
+            </div>
+
+            <div class="grid-item filter-two" data-category="filter-two">
+                <p class="name">Ma</p>
+                <p class="number">69</p>
+                <p class="price">56.50</p>
+            </div>
+
+            <div class="grid-item filter-two" data-category="filter-two">
+                <p class="name">Su</p>
+                <p class="number">55</p>
+                <p class="price">11.96</p>
+            </div>
+
+            <div class="grid-item filter-one" data-category="filter-one">
+                <p class="name">Gp</p>
+                <p class="number">1</p>
+                <p class="price">751.00</p>
+            </div>
+
+            <div class="grid-item filter-one" data-category="filter-one">
+                <p class="name">Sq</p>
+                <p class="number">80</p>
+                <p class="price">46.80</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="block mb-4">
+    	<div class="group-button margin-bottom-30" role="group" id="isotope-layout">
+            <button class="button button-default" disabled="true"><strong>Layout Models: </strong></button>
+            <button class="button button-default" data-layout-mode="masonry">Masonry</button>
+            <button class="button button-default" data-layout-mode="masonryHorizontal" data-is-horizontal="true">MasonryHorizontal</button>
+            <button class="button button-default" data-layout-mode="fitRows">Fit Rows</button>
+            <button class="button button-default" data-layout-mode="fitColumns" data-is-horizontal="true">FitColumns</button>
+            <button class="button button-default" data-layout-mode="vertical">Vertical</button>
+            <button class="button button-default" data-layout-mode="packery">Packery</button>
+            <button class="button button-default" data-layout-mode="cellsByRow">CellsByRow</button>
+            <button class="button button-default" data-layout-mode="cellsByColumn" data-is-horizontal="true">CellsByColumn</button>
+            <button class="button button-default" data-layout-mode="horiz" data-is-horizontal="true">Horiz</button>
+        </div>
+    </div>
+
+    <div class="block block-column mb-4" style="overflow: hidden;">
+        <div class="divider-bold margin-bottom-20"></div>
+
+        <div class="layout">
+            <div class="layout-item style-1">1</div>
+            <div class="layout-item style-2">2</div>
+            <div class="layout-item">3</div>
+            <div class="layout-item">4</div>
+            <div class="layout-item style-3">5</div>
+            <div class="layout-item style-1">6</div>
+            <div class="layout-item style-2">7</div>
+            <div class="layout-item">8</div>
+            <div class="layout-item">9</div>
+            <div class="layout-item style-1">10</div>
+            <div class="layout-item">11</div>
+            <div class="layout-item">12</div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Plugins -->
+{load href="__VENDOR__/isotope.min.js" /}
+<!-- {load href="__VENDOR__/isotope/isotope-docs.min.js" /} -->
+
+
+<!-- Javascript -->
+<script type="text/javascript">
+    // Filter & Sort
+    var isotope = $('.grid').isotope({
+        itemSelector : '.grid-item',
+        layoutMode : 'fitRows',
+
+        getSortData : {
+            name : '.name',
+            number : '.number parseInt',
+            price : '.price parseFloat',
+            category : '[data-caetgory]'
+        }
+    });
+
+    $('#isotope-filter').on('click', 'button', function(event) {
+        event.preventDefault();
+        var value = $(this).data('filter');
+        console.log('Filter: ' + value);
+        $(this).removeClass('btn-default').addClass('btn-primary').siblings().removeClass('btn-primary').addClass('btn-default');
+        isotope.isotope({ filter : value });
+    });
+
+    $('#isotope-sort').on('click', 'button', function(event) {
+        event.preventDefault();
+        var value = $(this).data('sort-by');
+        console.log('Sort by: ' + value);
+        $(this).removeClass('btn-default').addClass('btn-primary').siblings().removeClass('btn-primary').addClass('btn-default');
+        isotope.isotope({ sortBy : value });
+    });
+
+
+    // Layout Modes
+    var isotope_layout = $('.layout').isotope({
+        itemSelector : '.layout-item',
+        layoutMode : 'masonry',
+
+        masonry : {
+            columnWidth : '.layout-item'
+        },
+
+        masonryHorizontal : {
+            rowHeight : '.layout-item'
+        },
+
+        cellsByRow : {
+            columnWidth : '.layout-item',
+            rowHeight : '.layout-item'
+        },
+
+        cellsByColumn : {
+            columnWidth : '.layout-item',
+            rowHeight : '.layout-item'
+        }
+    });
+
+    var isHorizontal = false;
+    var $window = $(window);
+
+    $('#isotope-layout').on('click', 'button', function(event) {
+        event.preventDefault();
+        var value = $(this).data('layout-mode');
+        console.log('Layout Mode: ' + value);
+        $(this).removeClass('btn-default').addClass('btn-primary').siblings().removeClass('btn-primary').addClass('btn-default');
+        isotope_layout.isotope({ layoutMode : value });
+    });
+
+
+    $('#search').on('keyup', function(event) {
+        event.preventDefault();
+
+        var _this = $(this);
+
+        isotope.isotope({ filter: function() {
+            var value = _this.val();
+            var name = $(this).find('.name').text();
+            var number = $(this).find('.number').text();
+            var price = $(this).find('.price').text();
+
+            var merge = name.concat(number, price);
+            
+            console.log(merge);
+            return merge.match(value);
+        }})
+    });
+</script>

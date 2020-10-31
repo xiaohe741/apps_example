@@ -1,0 +1,318 @@
+
+
+<!-- Style -->
+<style>
+	.block {
+		align-items: center;
+	}
+
+	.block > span {
+		margin-left: 30px;
+		margin-right: 30px;
+		font-weight: bold;
+	}
+
+	.console {
+		display: flex;
+		align-items: flex-start;
+	}
+
+	.console-echo {
+		display: flex;
+		flex-direction: column;
+		max-height: 850px;
+		padding: 20px;
+		border-radius: 10px;
+		overflow-y: auto;
+	}
+
+	.console-echo-item {
+
+	}
+
+	.console-main {
+		display: flex;
+		flex-flow: row wrap;
+		position: relative;
+		max-height: 850px;
+		overflow-y: auto;
+	}
+
+	.console-item {
+		width: 10rem;
+		height: 10rem;
+		margin-right: 1.25rem;
+		margin-bottom: 1.25rem;
+		border: solid 1px #d3d3d3;
+		cursor: pointer;
+		overflow: hidden;
+	}
+
+	.console-item.folder {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.console-item.folder > i {
+		margin-bottom: 5px;
+		font-size: 2rem;
+	}
+
+	.console-item.folder > p {
+		font-weight: bold;
+	}
+
+	.console-item.file {
+		background: #ccffcf;
+	}
+
+	.console-item.file > img {
+		width: 100%;
+		height: 100%;
+	}
+
+	.overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #fff;
+		/*background: rgba(255, 255, 255, 0.75);*/
+	}
+
+	.hide {
+		display: none;
+	}
+
+</style>
+
+<div class="panel" id="photos">
+	
+	<div class="panel-title title-success">Photos Rename</div>
+
+	<div class="block mb-4">
+		<div class="block mr-auto">
+			<select class="selectpicker" v-model="root_dir" @change="change_root">			
+				<template v-for="(value, key) in root_list">
+					<option v-bind:value="value" v-if="root_dir == value" selected="selected">{{key}}</option>
+					<option v-bind:value="value" v-else>{{key}}</option>
+				</template>
+			</select>
+
+			<span>Folder: {{path_dir}}</span>
+			<span>Files: {{files.length}}</span>
+		</div>
+
+		<div class="group-button mr-4" id="photo-mode" data-toggle="switch" data-switch="button">
+			<button v-bind:class="[type == 1 ? 'button-success' : 'button-outline-success']" data-index="1" @click="change_type">Copy</button>
+			<button v-bind:class="[type == 2 ? 'button-success' : 'button-outline-success']" data-index="2" @click="change_type">MD5</button>
+			<button v-bind:class="[type == 3 ? 'button-success' : 'button-outline-success']" data-index="3" @click="change_type">Number</button>
+		</div>
+
+		<div class="block width-50">
+			<input type="text" class="form-control mr-3" name="dir_save" v-model="dir_save" @keyup="number" placeholder="Save Dir">
+			<button type="button" class="button-success" id="save-dir" @click="upload">Save Folder</button>
+		</div>
+	</div>
+
+	<div class="block block-2 console">
+		
+		<div class="block-item">
+			<div class="console-main">
+				<div class="console-item folder" v-if="isBack" @click="history">
+					<i class="fas fa-history"></i>
+					<p>Back</p>
+				</div>
+
+				<div class="console-item folder" v-for="folder in folders" @click="choose(folder)">
+					<i class="far fa-folder"></i>
+					<p>{{folder}}</p>
+				</div>
+
+				<div class="console-item file" v-for="file in files">
+					<a :href="file.base64" data-lightbox="group" :data-title="file.filename"><img :src="file.base64" alt="" data-toggle="thumb"></a>
+				</div>
+
+				<div class="overlay" v-bind:class="{hide: overlay}">
+					<span>Loading...</span>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="block-item">
+			<div class="console-echo">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Oldname</th>
+							<th>Newname</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr v-for="(value, index) in dialogs">
+							<td>{{index + 1}}</td>
+							<td>{{value.oldname}}</td>
+							<td>{{value.newname}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+<!-- Script -->
+{load href="__STATIC__/vendor/vue/vue.min.js" /}
+{load href="__STATIC__/vendor/axios/axios.min.js" /}
+<script>
+
+	var photos = new Vue({
+		el: '#photos',
+		data: {
+			type: 1,
+			dir_read: '',
+			dir_save: '',
+
+			width: false,
+			height: false,
+
+			folders: [],
+			files: [],
+
+			root_list: {
+				'Local': 'static/images',
+				'Material': 'f:/webroot/material/images',
+				'Pictures': 'c:/users/xiaoh/pictures',
+				'Photography': 'f:/backups/photography',
+			},
+			root_dir: 'static/images',
+			path_dir: '',
+
+			isBack: false,
+
+			dialogs: [],
+			overlay: false,
+			start: 0,
+		},
+		created: function (event) {
+			console.log(this.root_dir);
+
+			this.request(this.root_dir);
+		},
+
+		mounted: function (event) {
+		},
+
+		updated: function (event) {
+			var _this = this;
+			var index = this.path_dir.lastIndexOf('/');
+			if (index >= 0) {
+				this.isBack = true;
+			} else {
+				this.isBack = false;
+			}
+
+			this.$nextTick(function() {
+				setTimeout(function() {
+					_this.overlay = true;
+				}, 1500);
+			});
+
+			$('.animsition').getNiceScroll().resize();
+		},
+
+		methods: {
+			change_type: function (event) {
+				this.type = event.target.dataset.index;
+			},
+			change_root: function (event) {
+				this.request(event.target.value);
+			},
+
+			request: function (dir) {
+				var _this = this
+
+				_this.overlay = false;
+				_this.folders = [];
+				_this.files = [];
+				axios.post('/index/select', {
+					read_dir: dir
+				}).then(function(res) {
+					// console.log(res.data);
+
+					[_this.folders, _this.files] = res.data;
+
+					console.log('folders:');
+					console.log(_this.folders);
+
+					// console.log('files:');
+					// console.log(_this.files);
+				}).catch(function(error) {
+					console.log(error);
+				});
+			},
+
+			number: function (event) {
+				var _this = this;
+
+				axios.post('/index/number', {
+					folder: _this.root_dir + '/' + _this.dir_save,
+				}).then(res => {
+					_this.start = res.data;
+
+					// console.log(_this.start);
+				}).catch(error => {
+					console.log(error);
+				});
+			},
+
+			upload: function (event) {
+				var _this = this;
+
+				_this.dialogs = [];
+				if (this.files.length > 0) {
+					this.files.forEach(function(value, index) {
+						// console.log(value);
+						
+						axios.post('/index/upload', {
+							type: _this.type,
+							path: _this.root_dir + '/' + _this.dir_save,
+							data: value,
+							index: _this.start + index + 1,
+						}).then(res=> {
+							console.log('response: ');
+							console.log(res.data);
+
+							_this.dialogs.push(res.data)
+						})
+					});
+				}
+			},
+
+			choose: function (item) {
+				this.path_dir +=  '/' + item
+				this.request(this.root_dir + this.path_dir);
+			},
+
+			history: function (event) {
+				var index = this.path_dir.lastIndexOf('/');
+
+				this.path_dir = this.path_dir.substr(0, index);
+				this.request(this.root_dir + this.path_dir);
+			},
+		}
+	})
+
+</script>

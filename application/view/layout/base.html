@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+
+	<!-- Font -->
+	{load href="__STATIC__/css/font/css/all.min.css" /}
+	<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
+
+	<!-- Css -->
+	{load href="__STATIC__/vendor/bootstrap/css/bootstrap.min.css" /}
+	{load href="__STATIC__/vendor/bootstrap-select/css/bootstrap-select.min.css" /}
+	{load href="__STATIC__/vendor/alertify/css/alertify.css" /}
+	{load href="__STATIC__/vendor/lightbox/css/lightbox.css" /}
+	{load href="__STATIC__/vendor/icheck/skins/all.css" /}
+	{load href="__STATIC__/vendor/scrollbar/scrollbar.css" /}
+
+	{load href="__CSS__/core.css" /}
+
+
+	<!-- Js -->
+	{load href="__STATIC__/vendor/jquery.js" /}
+	{load href="__STATIC__/vendor/popper.js" /}
+	{load href="__STATIC__/vendor/bootstrap/js/bootstrap.js" /}
+	{load href="__STATIC__/vendor/bootstrap-select/js/bootstrap-select.min.js" /}
+	{load href="__STATIC__/vendor/lightbox/js/lightbox.js" /}
+	{load href="__STATIC__/vendor/nicescroll/nicescroll.js" /}
+	{load href="__STATIC__/vendor/jqthumb/jqthumb.js" /}
+	{load href="__STATIC__/vendor/icheck/icheck.js" /}
+	{load href="__STATIC__/vendor/overlay/overlay.js" /}
+	{load href="__STATIC__/vendor/scrollbar/scrollbar.js" /}
+
+	{load href="__JS__/core.js" /}
+	{load href="__JS__/icheck.js" /}
+	{load href="__JS__/isotope.js" /}
+
+	<title>Helper</title>
+</head>
+<body>
+	
+
+	<!-- Navbar -->
+	{include file="layout:navbar" /}
+
+
+	<!-- Animsition -->
+	<div class="animsition">{__CONTENT__}</div>
+
+
+	<!-- Script -->
+	{load href="__STATIC__/vendor/alertify/js/alertify.js" /}
+	<script>
+		$.helper.init();
+	</script>
+
+</body>
+</html>

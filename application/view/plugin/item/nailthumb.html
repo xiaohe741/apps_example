@@ -1,0 +1,65 @@
+<!-- Css -->
+{load href="__VENDOR__/nailthumb/nailthumb.css" /}
+
+
+<!-- Style -->
+<style type="text/css">
+	.photos {
+		display: flex;
+		flex-flow: row wrap;
+		width: 100%;
+	}
+
+    .photos-item {
+        position: relative;
+        width: 13.5rem;
+        height: 13.5rem;
+        margin: 0 1.5rem 1.5rem 0;
+        float: left;
+        background-color: #c4f2ca;
+        /* overflow: hidden; */
+    }
+    #nailthumb-resize .photos-item {
+        border: solid 1px #d3d3d3;
+        box-sizing: border-box;
+    }
+</style>
+
+
+<!-- Page -->
+<div class="panel mb-4">
+
+	<div class="panel-title title-success">Plugins - Nailthumb - Crop</div>
+
+	<div class="photos mb-4" id="nailthumb-crop">
+        {for start="1" end="31"}
+        <div class="photos-item nailthumb"><img src="__IMAGES__/01/{$i}.jpg"></div>
+        {/for}
+	</div>
+</div>
+
+<div class="panel mb-4">
+
+	<div class="panel-title title-success">Plugins - Nailthumb - Resize</div>
+
+	<div class="photos mb-4" id="nailthumb-resize">
+        {for start="1" end="31"}
+        <div class="photos-item nailthumb"><img src="__IMAGES__/01/{$i}.jpg"></div>
+        {/for}
+	</div>
+
+</div>
+
+
+<!-- Plugins -->
+{load href="__VENDOR__/nailthumb/nailthumb.js" /}
+
+
+<!-- Javascript -->
+<script type="text/javascript">
+    $('#nailthumb-crop').find('.nailthumb').nailthumb();
+
+    $('#nailthumb-resize').find('.nailthumb').nailthumb({
+        method : 'resize'
+    });
+</script>

@@ -1,0 +1,75 @@
+
+
+<!-- Style -->
+<style>
+	.block-item {
+		overflow: hidden;
+	}
+</style>
+
+
+<!-- Pages -->
+<div class="panel">
+	
+	<div class="panel-title title-success">Plugins - Jqthumb & Lightbox</div>
+
+	<div class="block block-10 mb-4">
+		
+		{for start="1" end="51"}
+		<div class="block-item" data-toggle="square">
+			<a href="__IMAGES__/01/{$i}.jpg" data-lightbox="group"><img src="__IMAGES__/01/{$i}.jpg" data-toggle="thumb"></a>
+		</div>
+		{/for}
+
+	</div>
+
+</div>
+
+
+<!-- Script -->
+{load href="__JS__/isotope.js" /}
+
+<script>
+
+	$.fn.square = function(object= 1) {
+    	var _this = $(this);
+
+    	if (object == 1) {
+    		_this.height(_this.width());
+    	} else {
+    		_this.width(_this.height());
+    	}
+    }
+
+    $('[data-toggle="square"]').square();
+
+    $.fn.thumb = function(options) {
+    	var defaults = {
+    		classname      : 'thumbnail',
+    		method         : 'modern',
+		    width          : '100%',
+		    height         : '100%',
+		    position       : { x: '50%', y: '50%' },
+		    source         : 'src',
+		    responsive     : 20,
+		    zoom           : 1,
+		    show           : true,
+		    renderPosition : 'before',
+		    onDemand       : false,
+		    onDemandEvent  : 'scroll',
+		    threshold      : 0,
+		    reinit         : true,
+		    error          : function(){},
+		    before         : function(){},
+		    after          : function(){},
+		    done           : function(){}
+    	};
+
+    	var options = $.extend(defaults, options);
+
+    	var _this = $(this);
+		_this.jqthumb(options);
+    }
+
+    $('[data-toggle="thumb"]').thumb();
+</script>

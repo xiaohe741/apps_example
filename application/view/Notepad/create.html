@@ -1,0 +1,73 @@
+
+
+<!-- Css -->
+{load href="https://cdn.quilljs.com/1.3.6/quill.base.css" /}
+{load href="https://cdn.quilljs.com/1.3.6/quill.bubble.css" /}
+{load href="https://cdn.quilljs.com/1.3.6/quill.snow.css" /}
+
+
+<!-- Style -->
+<style>
+	.notepad {
+		display: flex;
+		width: 100%;
+	}
+
+	.notepad-main,
+	.notepad-side {
+		box-sizing: border-box;
+	}
+
+	.notepad-main {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		padding-right: 1rem;
+	}
+
+	.notepad-side {
+		width: 20rem;
+		padding-left: 1rem;
+	}
+
+	.editor-quill {
+		background: #24C174;
+		opacity: 0.15;
+	}
+</style>
+
+
+<!-- Pages -->
+<div class="panel">
+	
+	<div class="panel-title title-success">Create Notepad</div>
+
+	<div class="notepad">
+
+		<div class="notepad-main">
+
+			<div class="block mb-4" style=" background: #d3d3d3;">
+				<div class="editor-quill" id="editor-quill"></div>				
+			</div>
+
+		</div>
+
+		<div class="notepad-side">
+			<div class="block mb-4"></div>			
+		</div>
+	</div>
+
+</div>
+
+<!-- Script -->
+<!-- {load href="__JS__/isotope.js" /} -->
+{load href="https://cdn.quilljs.com/1.3.6/quill.js" /}
+
+<script>
+
+	var quill = new Quill('#editor-quill', {
+		debug: 'info',
+		theme: 'snow'
+	});
+
+</script>

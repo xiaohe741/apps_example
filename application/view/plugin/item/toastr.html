@@ -1,0 +1,223 @@
+<!-- Css -->
+{load href="__STATIC__/vendor/Toastr/toastr.css" /}
+
+
+<!-- Style -->
+<style type="text/css">
+</style>
+
+
+<!-- Page -->
+<div class="panel mb-4">
+
+    <div class="panel-title title-success">Toastr - Basic</div>
+
+    <div class="block block-4">
+        <div class="col-lg-3"><button type="button" class="btn btn-info btn-block" id="toastr-info">Toastr Info</button></div>
+
+        <div class="col-lg-3"><button type="button" class="btn btn-success btn-block" id="toastr-success">Toastr Success</button></div>
+
+        <div class="col-lg-3"><button type="button" class="btn btn-warning btn-block" id="toastr-warning">Toastr Warning</button></div>
+
+        <div class="col-lg-3"><button type="button" class="btn btn-danger btn-block" id="toastr-error">Toastr Danger</button></div>
+    </div>
+</div>
+
+<div class="panel mb-4">
+
+    <div class="panel-title title-success">Toastr - Control</div>
+
+    <div class="block">
+            <div class="col-lg-4 col-lg-offset-1"><button type="button" class="btn btn-info btn-block" id="toastr-clear">Clear</button></div>
+
+            <div class="col-lg-4 col-lg-offset-2"><button type="button" class="btn btn-danger btn-block" id="toastr-remove">Remove</button></div>
+    </div>
+</div>
+
+<div class="panel mb-4">
+
+    <div class="panel-title title-success">Toastr - Options</div>
+
+    <div class="block">
+            <div class="col-lg-4 col-lg-offset-1"><button type="button" class="btn btn-default btn-block" id="toastr-option-html">Escape Html</button></div>
+
+            <div class="col-lg-4 col-lg-offset-2"><button type="button" class="btn btn-default btn-block" id="toastr-option-close">Close Html</button></div>
+    </div>
+</div>
+
+<div class="panel mb-4">
+
+    <div class="panel-title title-success">Toastr - Effect</div>
+
+    <div class="block">
+            <div class="col-lg-4 col-lg-offset-1"><button type="button" class="btn btn-default btn-block" id="toastr-effect-progressbar">Progress Bar</button></div>
+
+            <div class="col-lg-4 col-lg-offset-2"><button type="button" class="btn btn-default btn-block" id="toastr-effect-timeout">Success Timeout</button></div>
+    </div>
+</div>
+
+<div class="panel mb-4">
+
+    <div class="panel-title title-success">Toastr - Positions</div>
+
+    <div class="block">
+            <div class="col-lg-2 margin-bottom-20"><button type="button" class="btn btn-default btn-block" id="toastr-positions-top-left">Top Left</button></div>
+
+            <div class="col-lg-2 col-lg-offset-3 margin-bottom-20"><button type="button" class="btn btn-default btn-block" id="toastr-positions-top-center">Top Center</button></div>
+
+            <div class="col-lg-2 col-lg-offset-3 margin-bottom-20"><button type="button" class="btn btn-default btn-block" id="toastr-positions-top-right">Top Right</button></div>
+
+            <div class="col-lg-2 margin-bottom-20"><button type="button" class="btn btn-default btn-block" id="toastr-positions-bottom-left">Bottom Left</button></div>
+
+            <div class="col-lg-2 col-lg-offset-3 margin-bottom-20"><button type="button" class="btn btn-default btn-block" id="toastr-positions-bottom-center">Bottom Center</button></div>
+
+            <div class="col-lg-2 col-lg-offset-3 margin-bottom-20"><button type="button" class="btn btn-default btn-block" id="toastr-positions-bottom-right">Bottom Right</button></div>
+
+            <div class="col-lg-6 margin-bottom-20"><button type="button" class="btn btn-default btn-block" id="toastr-positions-top-full">Top Full Width</button></div>
+
+            <div class="col-lg-6 margin-bottom-20"><button type="button" class="btn btn-default btn-block" id="toastr-positions-bottom-full">Bottom Full Width</button></div>
+    </div>
+</div>
+
+
+<!-- Plugins -->
+{load href="__STATIC__/vendor/Toastr/toastr.min.js" /}
+
+
+<!-- Javascript -->
+<script type="text/javascript">
+    /**
+     * Toastr
+     * ===========================
+     */
+    
+    // Basic
+    $('#toastr-info').click(function(){
+        toastr.info('Are you the 6 fingered man?');
+    });
+
+    $('#toastr-success').click(function(){
+        toastr.success('Have fun storming the castle!', 'Miracle Max Says');
+    });
+
+    $('#toastr-warning').click(function(){
+        toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!');
+    });
+
+    $('#toastr-error').click(function(){
+        toastr.error('I do not think that word means what you think it means.', 'Inconceivable!');
+    });
+
+    // Control
+    $('#toastr-clear').click(function(){
+        toastr.clear();
+    });
+
+    $('#toastr-remove').click(function(){
+        toastr.remove();
+    });
+
+    // Options
+    $('#toastr-option-html').click(function(){
+    	toastr.options.escapeHtml = true;
+    	toastr.info('Toastr - Options - EscapeHtml');
+    });
+
+    $('#toastr-option-close').click(function(){
+        toastr.options.closeButton = true;
+        // toastr.options.closeHtml = '<button><i class="icon-off"></i></button>';
+
+        toastr.info('Are you the 6 fingered man?');
+
+        toastr.options.closeButton = false;
+    });
+
+    // Callbacks
+    toastr.options.onShown = function (){
+		console.log('Show');
+	}
+
+	toastr.options.onHidden = function (){
+		console.log('Hide');
+	}
+
+	toastr.options.onclick = function (){
+		console.log('Click');
+	}
+
+	toastr.options.onCloseClick = function (){
+		console.log('Close');
+	}
+
+
+	// Effects
+	$('#toastr-effect-progressbar').click(function(){
+		toastr.options.progressBar = true;
+		toastr.options.positionClass = 'toast-top-full-width';
+        toastr.info('Are you the 6 fingered man?');
+    });
+
+    $('#toastr-effect-timeout').click(function(){
+        toastr.success('We do have the Kapua suite available.', 'Turtle Bay Resort', {
+        	'timeOut' : 3000,
+        });
+    });
+
+
+    // Positions
+	$('#toastr-positions-top-left').click(function(){
+		toastr.options.preventDuplicates = true;
+		toastr.options.progressBar = true;
+		toastr.options.positionClass = 'toast-top-left';
+        toastr.info('Are you the 6 fingered man?');
+    });
+
+    $('#toastr-positions-top-center').click(function(){
+		toastr.options.preventDuplicates = true;
+		toastr.options.progressBar = true;
+		toastr.options.positionClass = 'toast-top-center';
+        toastr.info('Are you the 6 fingered man?');
+    });
+
+    $('#toastr-positions-top-right').click(function(){
+		toastr.options.preventDuplicates = true;
+		toastr.options.progressBar = true;
+		toastr.options.positionClass = 'toast-top-right';
+        toastr.info('Are you the 6 fingered man?');
+    });
+
+    $('#toastr-positions-bottom-left').click(function(){
+		toastr.options.preventDuplicates = true;
+		toastr.options.progressBar = true;
+		toastr.options.positionClass = 'toast-bottom-left';
+        toastr.info('Are you the 6 fingered man?');
+    });
+
+    $('#toastr-positions-bottom-center').click(function(){
+		toastr.options.preventDuplicates = true;
+		toastr.options.progressBar = true;
+		toastr.options.positionClass = 'toast-bottom-center';
+        toastr.info('Are you the 6 fingered man?');
+    });
+
+    $('#toastr-positions-bottom-right').click(function(){
+		toastr.options.preventDuplicates = true;
+		toastr.options.progressBar = true;
+		toastr.options.positionClass = 'toast-bottom-right';
+        toastr.info('Are you the 6 fingered man?');
+    });
+
+    $('#toastr-positions-top-full').click(function(){
+		toastr.options.preventDuplicates = true;
+		toastr.options.progressBar = true;
+		toastr.options.positionClass = 'toast-top-full-width';
+        toastr.info('Are you the 6 fingered man?');
+    });
+
+    $('#toastr-positions-bottom-full').click(function(){
+		toastr.options.preventDuplicates = true;
+		toastr.options.progressBar = true;
+		toastr.options.positionClass = 'toast-bottom-full-width';
+        toastr.info('Are you the 6 fingered man?');
+    });
+</script>

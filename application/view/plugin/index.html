@@ -1,0 +1,307 @@
+
+
+<!-- Style -->
+{load href="__VENDOR__/datatables/datatables.css" /}
+<style>
+	div.table {
+		width: 100%;
+	}
+
+	div.category {
+		display: flex;
+		flex-flow: row wrap;
+		width: 100%;
+	}
+
+	div.category-title {
+		width: 100%;
+		margin-bottom: 10px;
+		font-size: 1.5rem;
+	}
+
+	div.category-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-right: 1rem;
+		margin-bottom: 0.75rem;
+		padding: 0.75rem 1.55rem;
+		border: solid 1px #a7a7a7;
+		border-radius: 0.5rem;
+	}
+
+	div.category-item > i {
+		margin-left: 1rem;
+		cursor: pointer;
+	}
+
+	div.dataTables_filter > label > input {
+		min-width: 30rem;
+	}
+</style>
+
+<!-- Pages -->
+<div class="panel">
+
+	<div class="panel-title title-success">Plugins</div>
+
+	<div class="table">
+
+		<div class="block mb-4">
+			<button class="button button-success mr-2" data-toggle="modal" data-target="#create-plugin">Create Plugin</button>
+			<button class="button button-success mr-2" data-toggle="modal" data-target="#create-category">Create Category</button>
+		</div>
+
+		<table class="table table-hover" id="plugins">
+			<thead>
+				<th>Name</th>
+				<th>Category</th>
+				<th>Github or Official Site</th>
+				<th>Operate</th>
+			</thead>
+
+			<tbody>
+				<!-- <tr>
+					<td>Datatables</td>
+					<td>Table</td>
+					<td><a href="https://datatables.net/">https://datatables.net/</a></td>
+					<td>
+						<button class="button-icon"><i class="fas fa-search"></i></button>
+						<button class="button-icon"><i class="fas fa-edit"></i></button>
+						<button class="button-icon"><i class="fas fa-trash"></i></button>
+					</td>
+				</tr> -->
+
+				{foreach $plugins as $key => $value}
+				<tr>
+					<td>{$value.name|ucwords}</td>
+					<td>{$value.category|ucwords}</td>
+					<td><a href="{$value.github}">{$value.github}</a></td>
+					<td>
+						<button class="button-icon" data-redirect='/plugin/{$value.name|strtolower}'><i class="fas fa-search"></i></button>
+						<!-- <button class="button-icon"><i class="fas fa-edit"></i></button> -->
+						<button class="button-icon" data-delete="{$value.name|strtolower}" data-type="1"><i class="fas fa-trash"></i></button>
+					</td>
+				</tr>
+				{/foreach}
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="create-plugin" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Plugin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+			<form class="modal-body">
+			    <div class="form-group">
+			        <label for="name">Name</label>
+			        <input type="text" class="form-control" name="name" placeholder="Please write the name.">
+			    </div>
+			    <div class="form-group">
+			        <label for="category">Category</label>
+					<select class="form-control selectpicker" name="category">
+						{foreach $categories as $key => $value}
+						<option value="{$value}">{$value|ucwords}</option>
+						{/foreach}
+					</select>
+			    </div>
+			    <div class="form-group">
+			        <label for="github">Github</label>
+			        <input type="text" class="form-control" name="github" placeholder="Please write the address on Github or official website.">
+			    </div>
+			</form>
+
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="button button-primary" id="create-plugin-submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="create-category" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Plugin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+			<form class="modal-body">
+			    <div class="form-group">
+			        <label for="category">Category</label>
+			        <input type="text" class="form-control" id="category" placeholder="Please write the category.">
+			    </div>
+
+
+			    <div class="category">
+			    	<div class="category-title">Categories</div>
+			    	{foreach $categories as $key => $value}
+			    	<div class="category-item">
+			    		<span>{$value|ucwords}</span>
+			    		<i class="far fa-trash-alt" data-delete="{$value}" data-type="2"></i>
+			    	</div>
+			    	{/foreach}
+			    </div>
+			</form>
+
+            <div class="modal-footer">
+                <button type="button" class="button button-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="button button-primary" id="create-category-submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Plugins -->
+{load href="__VENDOR__/datatables/datatables.js" /}
+
+<script>
+
+	$('#plugins').DataTable({
+		"lengthMenu": [[20, 50, 80, -1], [20, 50, 80, "All"]],
+        "columnDefs": [{
+            "searchable": false,
+            "orderable": false,
+            "targets": 3
+        }],
+    });
+
+
+    $('div.modal').find('select').selectpicker();
+
+
+    $('#create-plugin').find('input').on('keypress', function(event) {
+    	if (event.keyCode == 13) {
+
+    		$('#create-plugin-submit').click();
+
+    		console.log('you clicked the enter.');
+
+    		return false;
+    	}
+    }); 
+
+    $('#create-plugin-submit').on('click', function(event) {
+    	event.preventDefault();
+
+    	var _this = $(this);
+    	var _data = {
+    		name: _this.parents('.modal').find('[name="name"]').val(),
+    		category: _this.parents('.modal').find('[name="category"]').val(),
+    		github: _this.parents('.modal').find('[name="github"]').val(),
+    	}
+
+    	$.helper.request('plugins', {
+    		method: 'post',
+    		data: { type: 1, value: _data },
+    		success: function(data, code) {
+    			console.log(data);
+    			console.log(code);
+
+    			if (code == 200) {
+    				setTimeout(function() {
+    					window.location.reload();
+    				}, 1000);
+    			}
+    		}
+    	});
+
+    	console.log(_data);
+    });
+
+    $('#create-category').find('input').on('keypress', function(event) {
+    	if (event.keyCode == 13) {
+
+    		$('#create-category-submit').click();
+
+    		console.log('you clicked the enter.');
+
+    		return false;
+    	}
+    });
+
+    $('#create-category-submit').on('click', function(event) {
+    	event.preventDefault();
+
+    	var _this  = $(this);
+    	var _value = $(this).parents('.modal').find('input').val();
+
+
+    	$.helper.request('plugins', {
+    		method: 'post',
+    		data: { type: 2, value: _value },
+    		success: function(data, code) {
+    			console.log(data);
+    			console.log(code);
+
+    			if (code == 200) {
+    				_this.parents('.modal').find('input').val('');
+    				$('div.category').append('<div class="category-item"> <span>' + _value + '</span> <i class="far fa-trash-alt" data-category-trash="' + _value + '"></i> </div>');
+
+    				$('div.category').find('[data-category-trash]:last').on('click', function(event) {
+				    	var _this = $(this);
+				    	_method.delete(_this, 2);
+				    });
+    			}
+    		}
+    	});
+
+    	console.log(_value);
+    });
+
+
+    var _method = {
+		delete: function(_this, _type) {
+
+			var _value = _this.data('delete');
+
+			alertify.confirm('is delete the ' + _value + '?', function() {
+				// console.log(_this.data('category-trash'));
+				
+				$.helper.request('plugins/delete', {
+		    		method: 'post',
+		    		data: { type: _type, value: _value, '_method': 'delete' },
+		    		success: function(data, code) {
+		    			console.log(data);
+		    			console.log(code);
+
+		    			if (code !== 200) {
+		    				return false;
+		    			}
+
+		    			if (_type == 1) {
+		    				setTimeout(function() {
+		    					window.location.reload();
+		    				}, 1000);
+		    			}
+
+		    			if (_type == 2) {
+		    				_this.parent().remove();
+		    			}
+		    		}
+		    	});
+			});
+    	}
+    }
+
+    $('[data-delete]').on('click', function(event) {
+    	var _this = $(this);
+    	_method.delete(_this, _this.data('type'));
+    });
+
+</script>

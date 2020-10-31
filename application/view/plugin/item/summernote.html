@@ -1,0 +1,122 @@
+<!-- Css -->
+{load href="__STATIC__/vendor/summernote/summernote-bs4.css" /}
+
+<!-- Style -->
+<style>
+
+	#summernote {
+		width: 100%;
+	}
+
+</style>
+
+
+<!-- Pages -->
+<div class="panel">
+
+	<div class="panel-title title-success">Plugins - Summernote</div>
+
+	<div class="block block-column mb-4">
+		<div id="summernote-1"></div>
+	</div>
+
+	<div class="block block-column mb-4">
+		<div id="summernote-2"></div>
+	</div>
+
+</div>
+
+
+<!-- Modal -->
+{block name="modal"}
+<div class="modal fade" id="gallery" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+<!-- Plugins -->
+{load href="__STATIC__/vendor/summernote/summernote.js" /}
+
+<script>
+	var summernote_1 = $('#summernote-1');
+	var summernote_2 = $('#summernote-2');
+	
+
+	summernote_1.summernote({
+		placeholder: 'Hello bootstrap 4',
+        tabsize: 2,
+        height: 350,
+        dialogsInBody: true,
+        // dialogsFade: true,
+	});
+
+
+	var button_hello = function (context) {
+		var ui = $.summernote.ui;
+
+		// create button
+		var button = ui.button({
+			contents: '<i class="fa fa-child"/>',
+			// tooltip: 'hello',
+			click: function () {
+				// invoke insertText method with 'hello' on editor module.
+				context.invoke('editor.insertText', 'hello');
+			}
+		});
+
+		return button.render();   // return button as jquery object
+	};
+
+	var button_gallery = function (context) {
+		var ui = $.summernote.ui;
+
+		// create button
+		var button = ui.button({
+			contents: '<i class="fas fa-images"/>',
+			// tooltip : 'Gallery',
+			click: function () {
+				$('#gallery').modal('toggle');
+			}
+		});
+
+		return button.render();   // return button as jquery object
+	};
+
+
+	summernote_2.summernote({
+		height: 600,
+		toolbar: [
+			['style', ['style']],
+			['font', ['bold', 'underline', 'clear']],
+			['fontname', ['fontname']],
+			['color', ['color']],
+			['para', ['ul', 'ol', 'paragraph']],
+			['table', ['table']],
+			['insert', ['link', 'picture', 'video']],
+			['view', ['fullscreen', 'codeview', 'help']],
+			['mybutton', ['hello','gallery']]
+		],
+
+		buttons: {
+			hello: button_hello,
+			gallery: button_gallery,
+		}
+	});
+
+</script>

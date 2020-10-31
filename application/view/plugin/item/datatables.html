@@ -1,0 +1,391 @@
+<!-- Css -->
+{load href="__STATIC__/vendor/datatables/datatables.css" /}
+
+<!-- Style -->
+<style>
+
+</style>
+
+
+<!-- Pages -->
+<div class="panel">
+
+	<div class="panel-title title-success">Plugins - Datatable</div>
+
+	<div class="block block-column mb-4">
+		<div class="alert alert-success" role="alert">Base</div>
+
+		<div class="block mb-4" data-table-for="datatable-1">
+			<div class="group-button ml-auto mr-4">
+				<button class="button-outline-disabled" disabled="true">每页显示</button>
+				<button class="button-success" data-table-length="10">10</button>
+				<button data-table-length="20">20</button>
+				<button data-table-length="30">30</button>
+				<button data-table-length="50">50</button>
+			</div>
+
+			<div class="group-search width-35">
+				<input type="text" data-table-filter="0">
+				<span><i class="fas fa-search"></i></span>
+			</div>
+		</div>
+
+		<table class="table" id="datatable-1">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+
+			<tbody></tbody>
+		</table>
+	</div>
+
+	<div class="block block-column mb-4">
+		<div class="alert alert-success" role="alert">Ajax - Retern Array</div>
+
+		<div class="block mb-4" data-table-for="datatable-2">
+			<div class="group-button ml-auto mr-4">
+				<button class="button-outline-disabled" disabled="true">每页显示</button>
+				<button class="button-success" data-table-length="10">10</button>
+				<button data-table-length="20">20</button>
+				<button data-table-length="30">30</button>
+				<button data-table-length="50">50</button>
+			</div>
+
+			<div class="group-search width-35">
+				<input type="text" data-table-filter="0">
+				<span><i class="fas fa-search"></i></span>
+			</div>
+		</div>
+
+		<table class="table" id="datatable-2">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+
+			<tbody></tbody>
+		</table>
+	</div>
+
+	<div class="block block-column mb-4">
+		<div class="alert alert-success" role="alert">Ajax - Retern Object</div>
+
+		<div class="block mb-4" data-table-for="datatable-3">
+			<div class="group-button ml-auto mr-4">
+				<button class="button-outline-disabled" disabled="true">每页显示</button>
+				<button class="button-success" data-table-length="10">10</button>
+				<button data-table-length="20">20</button>
+				<button data-table-length="30">30</button>
+				<button data-table-length="50">50</button>
+			</div>
+
+			<div class="group-search width-35">
+				<input type="text" data-table-filter="0">
+				<span><i class="fas fa-search"></i></span>
+			</div>
+		</div>
+
+		<table class="table" id="datatable-3">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Price</th>
+					<th>Operate</th>
+				</tr>
+			</thead>
+
+			<tbody></tbody>
+		</table>
+	</div>
+
+	<div class="block block-column mb-4">
+		<div class="alert alert-success" role="alert">Ajax - Server Side</div>
+
+		<div class="block mb-4" data-table-for="datatable-4">
+			<div class="group-button ml-auto mr-4">
+				<button class="button-outline-disabled" disabled="true">每页显示</button>
+				<button class="button-success" data-table-length="10">10</button>
+				<button data-table-length="20">20</button>
+				<button data-table-length="30">30</button>
+				<button data-table-length="50">50</button>
+			</div>
+
+			<div class="group-search width-35">
+				<input type="text" data-table-filter="0">
+				<span><i class="fas fa-search"></i></span>
+			</div>
+		</div>
+
+		<table class="table" id="datatable-4">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Price</th>
+					<th>Operate</th>
+				</tr>
+			</thead>
+
+			<tbody></tbody>
+		</table>
+	</div>
+
+	<div class="block block-column mb-4">
+		<div class="alert alert-success" role="alert">Ajax - Server Side</div>
+
+		<div class="block mb-4" data-table-for="datatable-5">
+			<div class="group-button ml-auto mr-4">
+				<button class="button-outline-disabled" disabled="true">每页显示</button>
+				<button class="button-success" data-table-length="10">10</button>
+				<button data-table-length="20">20</button>
+				<button data-table-length="30">30</button>
+				<button data-table-length="50">50</button>
+			</div>
+
+			<div class="group-search width-35">
+				<input type="text" data-table-filter="0">
+				<span><i class="fas fa-search"></i></span>
+			</div>
+		</div>
+
+		<table class="table" id="datatable-5">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Price</th>
+					<th>Operate</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Sandy.C</td>
+					<td>3000</td>
+					<th>
+						<button class="button-outline-success button-icon"><i class="fas fa-trash"></i></button>
+					</th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+
+<!-- Plugins -->
+{load href="__STATIC__/vendor/datatables/datatables.js" /}
+
+<script>
+
+	$.helper.datatable = function(element, options= {}, callback= false) {
+		var defaults = {
+			'language': {
+                'lengthMenu': '每页 _MENU_ 条记录',
+                'zeroRecords': '没有找到记录',
+                // 'info': '第 _PAGE_ 页 ( 总共 _PAGES_ 页 )',
+                'info': '显示第 _START_ 至 _END_ 条结果，共 _TOTAL_ 条',
+                'infoEmpty': '无记录',
+                'infoFiltered': '(从 _MAX_ 条记录过滤)',
+                'search': '搜索',
+                'paginate': {  
+                    'first': '最前',
+                    'last': '最后',
+                    'next': '向后',
+                    'previous'  : '向前',
+                },  
+            },
+
+            'paging': true,
+            'pageLength': 10,
+
+            // 'lengthMenu': [[30], [50]],
+
+            'dom' : 'rtip',
+		}
+
+		var options    = $.extend(true, defaults, options);
+		var _datatable = $('#' + element).DataTable(options);
+
+	    $('[data-table-for="' + element + '"]').find('[data-table-filter]').on('keyup', function(event) {
+			var _column = $(this).data('table-filter');
+			var _value  = $(this).val();
+
+	    	if (_column == 0) {
+	    		_datatable.search(_value).draw();
+	    	} else {
+	    		_datatable.column(_column - 1).search(_value).draw();
+	    	}
+	    });
+
+	    $('[data-table-for="' + element + '"]').find('[data-table-length]').on('click', function(event) {
+	    	var _this = $(this);
+	    	_this.addClass('button-success').siblings().removeClass('button-success');
+	    	_datatable.page.len(_this.data('table-length')).draw();
+	    });
+
+
+	    _datatable.on('draw', function() {
+	    	typeof callback == 'function' && callback.call(this, $('#' + element));
+
+	    	$.helper.nicescroll('resize');
+		});
+
+		_datatable.on('search', function () {
+			// console.log('search');
+		});
+
+		return _datatable;
+	};
+
+	var _data = [
+		['1001', '黄瓜', 3.50],
+		['1002', '西红柿', 2.60],
+		['1003', '豆角', 6.80],
+		['1004', '土豆', 1.80],
+		['1005', '豆芽', 3.20],
+		['1006', '韭菜', 2.50],
+		['1007', '韭黄', 3.10],
+		['1008', '南瓜', 3.50],
+		['1009', '苦瓜', 3.20],
+		['1010', '丝瓜', 4.30],
+		['1011', '芹菜', 1.80],
+		['1012', '菠菜', 2.60],
+		['1013', '油麦菜', 6.80],
+		['1014', '娃娃菜', 1.80],
+		['1015', '大白菜', 3.20],
+		['1016', '杏鲍菇', 2.50],
+		['1017', '蟹味菇', 3.10],
+		['1018', '金针菇', 3.50],
+		['1019', '鸡腿菇', 3.20],
+		['1020', '鲜蘑', 4.30],
+	];
+
+
+	var _datatable_1 = $.helper.datatable('datatable-1', {
+		'data': _data,
+		'columnDefs': [
+			{
+				targets: 2,
+				render: function(data, type, row, meta) {
+					return data.toFixed(2);
+				}
+			}
+		],
+	});
+
+	$.helper.datatable('datatable-2', {
+		'ajax': {
+			'url': '/data/datatable',
+			'type': 'post',
+			'data': {
+				'method': 'array'
+			},
+			'dataSrc': '',
+		},
+		'columns': [
+			{data: 0},
+			{data: 1},
+			{data: 2},
+		],
+
+		// 'data': _data,
+	});
+
+	$.helper.datatable('datatable-3', {
+		'ajax': {
+			'url': '/data/datatable',
+			'type': 'post',
+			'data': {
+				'method': 'object'
+			},
+			'dataSrc': '',
+			// success: function(data,code) {
+			// 	console.log('+-------------------+');
+			// 	console.log(data);
+			// 	console.log('+-------------------+');
+			// },
+		},
+		'columns': [
+			{ data: 'id' },
+			{ data: 'name' },
+			{ data: 'price' },
+			{ data: function(data) {
+				return '<button class="button button-outline-success button-icon mr-2"><i class="fas fa-edit"></i></button> <button class="button button-outline-success button-icon"><i class="fas fa-trash" data-operate="delete" data-index="' + data.id + '"></i></button>';
+			}},
+		],
+	}, function(table) {
+		table.find('[data-operate="delete"]').on('click', function(event) {
+			event.preventDefault();
+			var _this = $(this);
+			_this.parents('tr').remove();
+
+			console.log('datatable-3:');
+			console.log(_this.data('index'));
+		});
+	});
+
+	
+	$.helper.datatable('datatable-4', {
+		'processing': true,
+		'serverSide': true,
+		'ajax': {
+			'url': '/data/datatable',
+			'type': 'post',
+			'data': {
+				'method': 'server'
+			},
+			// 'dataSrc': 'data',
+			// success: function(data,code) {
+			// 	console.log('+-------------------+');
+			// 	console.log(data);
+			// 	console.log('+-------------------+');
+			// },
+		},
+		'columns': [
+			{ data: 'id' },
+			{ data: 'name' },
+			{ data: 'price' },
+			{ data: null },
+		],
+		'columnDefs': [
+			{
+				targets: 3,
+				orderable: false,
+				searchable: false,
+				render: function(data, type, row, meta) {
+					// console.log(data);
+
+					return '<button class="button button-outline-success button-icon mr-2"><i class="fas fa-edit"></i></button> <button class="button button-outline-success button-icon"><i class="fas fa-trash" data-operate="delete" data-index="' + data.id + '"></i></button>';
+				}
+			}
+		],
+
+		// 'pageLength': 20,
+	}, function(table) {
+		table.find('[data-operate="delete"]').on('click', function(event) {
+			event.preventDefault();
+
+			var _this = $(this);
+			alertify.confirm('Do you really want to delete this item?', function() {
+				_this.parents('tr').remove();
+			});
+			
+			console.log('datatable-3:');
+			console.log(_this.data('index'));
+		});
+	});
+
+
+	var _datatable_5 = $.helper.datatable('datatable-5');
+
+</script>

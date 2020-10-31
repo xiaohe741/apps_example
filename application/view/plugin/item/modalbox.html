@@ -1,0 +1,123 @@
+<!-- Css -->
+
+<!-- Style -->
+<style type="text/css">
+    .modalbox {
+        position: absolute;
+        width: 1000px;
+        margin: auto;
+        background: #ffffff;
+        display: none;
+        z-index: -9999;
+    }
+
+    .modalbox-header,
+    .modalbox-body,
+    .modalbox-footer {
+        padding: 10px 20px;
+    }
+
+    .modalbox-header {
+        background: #3aa99e;
+    }
+
+    .modalbox-header .title {
+        color: #ffffff;
+        background: transparent;
+    }
+
+    .modalbox-body {
+        height: 500px;
+    }
+
+    .modalbox-footer {
+        border-top: dashed 1px #d3d3d3;
+    }
+
+    .iw-modalOverlay {
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .iw-modalBox {
+        z-index: 1;
+    }
+
+
+    /* Other */
+    .pictures {
+        position: relative;
+        max-height: 480px;
+        overflow: hidden;
+    }
+
+    .pictures-item {
+        width: 158px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+        float: left;
+        box-sizing: border-box;
+    }
+
+    .pictures-item img {
+        width: 100%;
+        padding: 5px;
+        border: solid 1px #d3d3d3;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+</style>
+
+
+<!-- Pages -->
+<div class="panel">
+    
+    <div class="panel-title title-success">Plugins - Modalbox</div>
+
+
+    <div class="block mb-4">
+        <button class="button button-success-outline" data-modalbox="basic">Basic</button>
+        <button class="button button-success-outline" data-modalbox="callback">Callback</button>
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modalbox" aria-hidden="true">
+    <div class="modalbox-header">
+        <h4 class="title">ModalBox</h4>
+    </div>
+
+    <div class="modalbox-body">
+    </div>
+
+    <div class="modalbox-footer">All right reserved. <i class="fa fa-copyright"></i> www.youtan.com</div>
+</div>
+
+
+<!-- Plugins -->
+{load href="__VENDOR__/modalbox/modalbox.js" /}
+
+
+<!-- Javascript -->
+<script type="text/javascript">
+    $('[data-modalbox]').each(function(index, el) {
+        var param = $(this).data('modalbox');
+        $(this).click(function(event) {
+            switch (param) {
+                case 'basic':
+                    $('.modalbox').modalBox({
+                        onOpen: function() {
+                            console.log('modal open.');
+                        }
+                    });
+                    break;
+                default:
+                    // statements_def
+                    break;
+            }
+        });
+    });
+    // $('.modalbox').modalBox();
+</script>

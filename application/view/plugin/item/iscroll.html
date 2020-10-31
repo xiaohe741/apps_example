@@ -1,0 +1,253 @@
+<!-- Css -->
+
+
+<!-- Style -->
+<style type="text/css">
+    .iscroll {
+        position: relative;
+        padding: 1rem;
+        border: solid 1px #d3d3d3;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .iscroll ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .iscroll .square {
+        width: 13rem;
+        height: 13rem;
+        line-height: 13rem;
+        margin: 1rem;
+        float: left;
+        text-align: center;
+        font-size: 6rem;
+        border: solid 1px #d3d3d3;
+        box-sizing: border-box;
+    }
+
+    /* Default */
+    .iscroll-default {
+        height: 60rem;
+    }        
+
+    .iscroll-default li {
+        height: 12rem;
+        line-height: 12rem;
+        text-align: center;
+        font-size: 6rem;
+        border-bottom: solid 1px #d3d3d3;
+    }
+
+
+    /* Float */
+    .iscroll-float {
+        height: 32rem;
+    }
+
+    .iscroll-float .iscroll-item {
+        min-height: 45rem;
+        /* text-align: center;
+        font-size: 6rem;
+        border-bottom: solid 1px #d3d3d3; */
+    }
+
+
+    /* Horizontal */
+    .iscroll-horizontal {
+        height: 17rem;
+    }
+
+    .iscroll-horizontal .scroller {
+        position: absolute;
+        width: 452rem;
+        height: 100%;
+        z-index: 1;
+    }
+</style>
+
+<!-- Page -->
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">{$Request.action|ucwords}</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="iscroll iscroll-default" id="iscroll-default">
+            <ul>
+                {for start="1" end="31"}
+                <li class="iscroll-item">{$i}</li>
+                {/for}
+                <input type="hidden" id="rectangle" value="30">
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">{$Request.action|ucwords} - float</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="iscroll iscroll-float" id="iscroll-float">
+            <ul>
+                <li class="iscroll-item">
+                    {for start="1" end="31"}
+                    <div class="square">{$i}</div>
+                    {/for}
+                </li>
+                <input type="hidden" id="square-float" value="30">
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">{$Request.action|ucwords} - horizontal</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="iscroll iscroll-horizontal" id="iscroll-horizontal">
+            <ul class="scroller">
+                {for start="1" end="31"}
+                <li class="iscroll-item square">{$i}</li>
+                {/for}
+                <input type="hidden" id="square-horizontal" value="30">
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">{$Request.action|ucwords} - Snap</h3>
+    </div>
+
+    <div class="panel-body">
+    </div>
+</div>
+
+
+<!-- Plugins -->
+{load href="__STATIC__/plugins/iscroll/iscroll.js" /}
+{load href="__STATIC__/plugins/overlay/overlay.js" /}
+
+
+<!-- Javascript -->
+<script type="text/javascript">
+    // Default
+    var scrollbars = new IScroll('#iscroll-default', {
+        scrollbars : false,
+    });
+
+    scrollbars.on('scrollStart', function(event) {
+        // event.preventDefault();
+        console.log('Scroll Start');
+    });
+
+    scrollbars.on('scroll', function(event) {
+        // event.preventDefault();
+        console.log('Scrolling');
+    });
+
+    scrollbars.on('scrollEnd', function(event) {
+        // event.preventDefault();
+        console.log('Scroll End');
+        console.log('Current : ' + scrollbars.x + '|' + scrollbars.y);
+        console.log('Max Scroll : ' + scrollbars.maxScrollX + '|' + scrollbars.maxScrollY);
+
+        if(scrollbars.y == scrollbars.maxScrollY){
+            console.log('You hav moved bottom.');
+            $('#iscroll-default').LoadingOverlay('show', {
+                color : "rgba(255, 255, 255, 0.95)"
+            });
+            $('#iscroll-default ul').rectangle('#rectangle');
+            $('#iscroll-default').LoadingOverlay('hide');
+        }
+    });
+
+    $.fn.rectangle = function(element) {
+        var elements = parseInt($(element).val());
+        if(elements == 100){
+            return false;
+        }
+        for (var i = (elements + 1); i < (elements + 11); i++) {
+            $(this).append('<li>' + i + '</li>');
+            $(element).val(i);
+        }
+        scrollbars.refresh();
+    }
+    
+
+    // Horizontal
+    var horizontal = new IScroll('#iscroll-horizontal', {
+        scrollX : true,
+        scrollY : false,
+        mouseWheel : true
+    });
+
+    horizontal.on('scrollEnd', function(event) {
+        console.log('Scroll-Horizontal End');
+        if(horizontal.x == horizontal.maxScrollX){
+            $('#iscroll-horizontal').LoadingOverlay('show', {maxSize : '50px'});
+            $('#iscroll-horizontal ul').square_horizontal('#square-horizontal');
+            $('#iscroll-horizontal').LoadingOverlay('hide');
+        }
+    });
+
+    $.fn.square_horizontal = function(element) {
+        var elements = parseInt($(element).val());
+        if(elements >= 100){
+            return false;
+        }
+        console.log(elements);
+        $(this).css('width',((elements/10) * 150 + 152) + 'rem');
+        console.log(((elements/10) * 15 + 2));
+        for (var i = (elements + 1); i < (elements + 11); i++) {
+            $(this).append('<li class="iscroll-item square">' + i + '</li>');
+            $(element).val(i);
+        }
+        horizontal.refresh();
+    }
+
+
+    // Float
+    var float = new IScroll('#iscroll-float', {
+        scrollbars : true,
+        mouseWheel : true
+    });
+
+    float.on('scrollEnd', function(event) {
+        console.log('Scroll-Float End');
+        if(float.y == float.maxScrollY){
+            $('#iscroll-float .iscroll-item').square_float('#square-float','#iscroll-float');
+        }
+    });
+
+    $.fn.square_float = function(element, overlay) {
+        var elements = parseInt($(element).val());
+        if(elements >= 110) {
+            return false;
+        }else{
+            // Overlay Show
+            $(overlay).LoadingOverlay('show', {maxSize : '80px'});
+
+            $(this).css('height',((elements/10) * 15 + 32) + 'rem');
+            for (var i = (elements + 1); i < (elements + 21); i++) {
+                $(this).append('<div class="square">' + i + '</div>');
+                $(element).val(i);
+            }
+            console.log($(element).val());
+            float.refresh();
+
+            // Overlay Hide
+            $(overlay).LoadingOverlay('hide');
+        }
+    }
+</script>

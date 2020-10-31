@@ -1,0 +1,202 @@
+<!-- Css -->
+{load href="__VENDOR__/nestable/nestable.min.css" /}
+
+<!-- Style -->
+<style type="text/css">
+    .nestable-wrap {
+    	display: block;
+        position: relative;
+        width: 100%;
+    }
+
+    .nestable-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        position: relative;
+        display: block;
+    }
+
+    .nestable-list .nestable-list {
+        padding-left: 5rem;
+    }
+
+    .nestable-item {
+        position: relative;
+        display: block;
+        margin-bottom: 1rem;
+        font-size: 3rem;
+    }
+
+    .nestable-handle {
+        position: relative;
+        display: block;
+        margin-bottom: 1rem;
+        padding: 0.35rem 1.35rem;
+        text-decoration: none;
+        border: solid 1px #d3d3d3;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    .nestable-handle:hover {
+        color: #3aa99e;
+        /* background: #3aa99e; */
+    }
+
+    .nestable-dragel {
+        position: absolute;
+        pointer-events: none;
+        z-index: 9999;
+    }
+
+    .nestable-dragel .nestable-handle {
+        box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .nestable-nodragle {
+        background: #d3d3d3;
+    }
+
+    .nestable-placeholder {
+        min-height: 6rem;
+        margin-bottom: 1rem;
+        padding: 0;
+        background: #BCD8F1;
+        border: dashed 1px #526069;
+        box-sizing: border-box;
+    }
+
+    .nestable-empty {
+        /* min-height: 30rem; */
+        border: dashed 1px #526069;
+        background-color: #57c7d4;
+        background-size: 18rem 18rem;
+        background-position: 0 0, 9rem 9rem;
+    }
+
+    .nestable-collapsed .nestable-list,
+    .nestable-collapsed .nestable-collapse {
+        display: none;
+    }
+
+    .nestable-collapsed .nestable-expand {
+        display: block;
+    }
+
+    .nestable-nochildren .nestable-placeholder {
+        display: none;
+    }
+
+    .nestable-expand {
+        display: none;
+    }
+
+    .nestable-item > button {
+        position: relative;
+        width: 3rem;
+        height: 3rem;
+        line-height: 3rem;
+        margin: 1.5rem 0;
+        float: left;
+
+        font-size: 2rem;
+        font-weight: bold;
+        color: #000000;
+        text-align: center;
+        text-indent: 100%;
+        white-space: nowrap;
+        border: dashed 1px #d3d3d3;
+        background: transparent;
+        white-space: nowrap;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .nestable-item > button:before {
+        position: absolute;
+        display: block;
+        top: 0;
+
+        width: 3rem;
+        height: 3rem;
+        line-height: 3rem;
+        text-align: center;
+        text-indent: 0;
+        background: transparent;
+    }
+
+    .nestable-item > button.nestable-expand:before {
+        content: "+";
+    }
+
+    .nestable-item > button.nestable-collapse:before {
+        content: "-";
+    }
+</style>
+
+
+<!-- Pages -->
+<div class="panel">
+
+	<div class="panel-title title-success">Plugins - Nestable</div>
+
+	<div class="group-button mb-4">
+        <button type="button" class="button button-default" id="insert">Insert Item</button>
+        <button type="button" class="button button-default" id="disable">Disable</button>
+        <button type="button" class="button button-default" id="enable">Enable</button>
+        <button type="button" class="button button-default" id="reload">Reload</button>
+    </div>
+
+    <div class="block mb-4">
+        <div class="nestable-wrap">
+            <ul class="nestable-list">
+                {for start="1" end="11"}
+                <li class="nestable-item" data-id="{$i}"><div class="nestable-handle">{$i}</div></li>
+                {/for}
+                <li class="nestable-item" data-id="11">
+                    <div class="nestable-handle">11</div>
+                    <ul class="nestable-list">
+                        <li class="nestable-item" data-id="12"><div class="nestable-handle">12</div></li>
+                        <li class="nestable-item" data-id="13"><div class="nestable-handle">13</div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+</div>
+
+
+<!-- Plugins -->
+{load href="__VENDOR__/nestable/nestable.min.js" /}
+
+
+<!-- Javascript -->
+<script type="text/javascript">
+    $('.nestable-wrap').nestable({
+        // Defaults
+        rootClass : 'nestable-wrap',
+        listClass : 'nestable-list',
+        itemClass : 'nestable-item',
+        dragClass : 'nestable-dragel',
+        noDragClass : 'nestable-nodragle',
+        handleClass : 'nestable-handle',
+        emptyClass : 'nestable-empty',
+        placeClass : 'nestable-placeholder',
+        collapsedClass : 'nestable-cllapsed',
+
+        expandBtnHTML : '<button class="nestable-expand" data-action="expand" type="button"></button>',
+        collapseBtnHTML :'<button class="nestable-collapse" data-action="collapse" type="button"></button>',
+
+        listNodeName : 'ul',
+        itemNodeName : 'li',
+
+        // Callback
+        callback : function(l, e) {
+            console.log(l);
+            console.log(e);
+        }
+    });
+</script>

@@ -1,0 +1,161 @@
+<!-- Css -->
+
+<!-- Style -->
+<style type="text/css">
+    ul {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .sortable {
+        position: relative;
+    }        
+
+    .sortable li {
+        position: relative;
+        width: 13.5rem;
+        height: 13.5rem;
+        line-height: 13.5rem;
+        margin: 10px;
+        float: left;
+        font-size: 8rem;
+        text-align: center;
+        border: solid 1px #d3d3d3;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    .sortable li:hover {
+        background: #FA9898;
+    }
+
+    .sortable span {
+        font-size: 3rem;
+        color: #76838F;
+    }
+
+    img {
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .photos {
+        position: relative;
+    }
+
+    .photos li {
+        position: relative;
+        width: 13.5rem;
+        height: 8rem;
+        margin: 10px;
+        padding: 5px;
+        float: left;
+        border: solid 1px #d3d3d3;
+        cursor: pointer;
+    }
+
+    .photos li:hover{
+        background: #36AB7A;
+    }
+</style>
+
+
+<!-- Pages -->
+<div class="panel">
+
+	<div class="panel-title title-success">Plugins - Sortable</div>
+
+	<div class="block mb-4">
+        <div class="group-button">
+            <button type="button" class="button button-default" id="insert">Insert Item</button>
+            <button type="button" class="button button-default" id="disable">Disable</button>
+            <button type="button" class="button button-default" id="enable">Enable</button>
+            <button type="button" class="button button-default" id="reload">Reload</button>
+        </div>
+    </div>
+
+    <div class="block mb-4">
+        <ul class="sortable" id="demo-1">
+            {for start="1" end="31"}
+            <li class="sortable-item">{$i} <span>{$i}</span></li>
+            {/for}
+        </ul>
+    </div>
+    
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">{$Request.action|ucwords} - Demo 1</h3>
+    </div>
+
+    <div class="block mb-4">
+        <div class="photos">
+            <ul class="sortable">
+                {for start="1" end="31"}
+                <li class="photo"><img src="__IMAGES__/01/{$i}.jpg"></li>
+                {/for} 
+            </ul>                
+        </div>
+    </div>
+</div>
+
+
+<!-- Plugins -->
+{load href="__VENDOR__/sortable/sortable.js" /}
+
+<!-- {load href="__VENDOR__/Masonry/masonry.pkgd.js" /} -->
+<!-- {load href="__VENDOR__/ImagesLoaded/imagesLoaded.pkgd.js" /} -->
+
+<!-- Javascript -->
+<script type="text/javascript">
+    // Sortable
+    sortable('.sortable')[0].addEventListener('sortstart', function(){
+        console.log('sortstart');
+    });
+    sortable('.sortable')[0].addEventListener('sortstop', function(){
+        console.log('sortstop');
+    });
+    sortable('.sortable')[0].addEventListener('sortupdate', function(){
+        $('.sortable li').each(function(index, el) {
+            var $this = $(this);
+
+            $this.find('span').html(index + 1);
+        });
+        console.log('sortupdate');
+    });
+
+
+    sortable('.sortable')[1].addEventListener('sortstart', function(){
+        console.log('sortstart[1]');
+    });
+
+    sortable('.sortable')[1].addEventListener('sortstop', function(){
+        console.log('sortstop[1]');
+    });
+
+    sortable('.sortable')[1].addEventListener('sortupdate', function(){
+        console.log('sortable[1]');
+    });
+
+
+
+    $('#insert').click(function(event) {
+        var length = $('#demo-1 li').length + 1;
+        console.log(length);
+        $('#demo-1').append('<li>' + length + ' <span>' + length + '</span></li>');
+    });
+
+    $('#disable').click(function(event) {
+        sortable('.sortable', 'disable');
+    });
+
+    $('#enable').click(function(event) {
+        sortable('.sortable', 'enable');
+    });
+
+    $('#reload').click(function(event) {
+        sortable('.sortable', 'reload');
+    });
+</script>

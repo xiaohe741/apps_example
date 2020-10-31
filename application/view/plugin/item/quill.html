@@ -1,0 +1,36 @@
+
+
+<!-- Style -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.base.css" rel="stylesheet">
+<link href="https://cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+<style>
+	div.editor {
+		background: #24C174;
+		opacity: 0.15;
+	}
+</style>
+
+<!-- Pages -->
+<div class="panel">
+
+	<div class="panel-title title-success">Plugins</div>
+
+	<div class="editor" id="editor"></div>
+
+</div>
+
+
+<!-- Plugins -->
+<!-- {load href="__VENDOR__/quill/quill.js" /} -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<script>
+
+	var quill = new Quill('#editor', {
+		debug: 'info',
+		theme: 'snow'
+	});
+
+</script>
